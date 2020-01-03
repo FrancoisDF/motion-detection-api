@@ -1,0 +1,73 @@
+{
+  "name": "motioneye-detection",
+  "version": "0.1.0",
+  "description": "NodeJs API server to process images to extract person and send email/alert",
+  "main": "src/index.ts",
+  "scripts": {
+    "start": "node -r ts-node/register --inspect ./src/index.ts",
+    "dev": "nodemon",
+    "build": "tsc",
+    "lint": "tslint -c tslint.json 'src/**/*.ts'",
+    "lint:fix": "tslint -p . --fix",
+    "format": "prettier \"src/**/*.ts\" -l \"warn\"",
+    "format:fix": "prettier --write \"src/**/*.ts\" -l \"warn\"",
+    "format:lint:fix": "prettier --write \"src/**/*.ts\" -l \"warn\" && npm run lint:fix"
+  },
+  "repository": {
+    "type": "git",
+    "url": "https://github.com/r0muald/motioneye-detection.git"
+  },
+  "keywords": [
+    "nodejs",
+    "typescript",
+    "expressjs",
+    "server",
+    "motioneye",
+    "tensorflow",
+    "human",
+    "detection",
+    "security",
+    "camera"
+  ],
+  "author": "francois.delpech@sfr.fr",
+  "license": "MIT",
+  "homepage": "https://github.com/r0muald/motioneye-detection",
+  "dependencies": {
+    "@tensorflow-models/coco-ssd": "^2.0.1",
+    "@tensorflow/tfjs-node": "^1.5.1",
+    "@types/nodemailer": "^6.4.0",
+    "compression": "^1.7.4",
+    "debug": "^4.1.1",
+    "dotenv": "^7.0.0",
+    "errorhandler": "^1.5.0",
+    "express": "^4.17.0",
+    "express-joi-validation": "^0.3.0",
+    "helmet": "^3.16.0",
+    "joi": "^14.3.1",
+    "jpeg-js": "^0.3.6",
+    "nodemailer": "^6.4.2"
+  },
+  "devDependencies": {
+    "@types/body-parser": "^1.17.0",
+    "@types/compression": "0.0.36",
+    "@types/debug": "^4.1.4",
+    "@types/dotenv": "^6.1.1",
+    "@types/errorhandler": "0.0.32",
+    "@types/express": "^4.16.1",
+    "@types/helmet": "0.0.43",
+    "@types/joi": "^14.3.3",
+    "@types/jpeg-js": "^0.3.7",
+    "@types/node": "^11.13.7",
+    "eslint": "^5.16.0",
+    "eslint-plugin-import": "^2.17.2",
+    "nodemon": "^1.18.11",
+    "prettier": "^1.17.0",
+    "ts-node": "^8.1.0",
+    "tslint": "^5.16.0",
+    "tslint-config-prettier": "^1.18.0",
+    "typescript": "3.5.3"
+  },
+  "engines": {
+    "node": ">=8.0.0"
+  }
+}
