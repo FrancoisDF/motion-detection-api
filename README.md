@@ -148,9 +148,9 @@ You can find the name of the app in `pm2-process.json` file.
 
 1. Pull the repo locally
 ```
-wget --no-check-certificate --content-disposition https://github.com/joyent/node/tarball/v0.7.1
+wget --no-check-certificate --content-disposition https://github.com/R0muald/motioneye-detection/archive/master.zip
 # --no-check-certificate was necessary for me to have wget not puke about https
-curl -LJO https://github.com/joyent/node/tarball/v0.7.1
+curl -LJO https://github.com/R0muald/motioneye-detection/archive/master.zip
 ```
 
 2. install
