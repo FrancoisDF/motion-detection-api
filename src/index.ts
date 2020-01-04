@@ -3,7 +3,7 @@ Env.loadEnvSettings();
 
 import * as http from 'http';
 import * as debug from 'debug';
-import { App } from './app/app';
+import { App } from './app/App';
 
 const DEFAULT_PORT = 3000;
 const logger = debug('app:src/index.ts');

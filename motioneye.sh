@@ -43,7 +43,21 @@ systemctl restart smbd
 
 # TensorFlow preparation
 
-sudo apt install python3-dev python3-pip -y
-sudo pip3 install -U virtualenv # system-wide install
+# apt-get install openjdk-8-jdk automake autoconf -y
+# apt-get install curl zip unzip libtool swig libpng-dev zlib1g-dev pkg-config git g++ wget xz-utils -y
+
+# # For python2.7
+# apt-get install python-numpy python-dev python-pip python-mock -y
+
+# # if using a virtual environment, omit the --user argument
+# pip install -U --user keras_applications==1.0.5 --no-deps
+# pip install -U --user keras_preprocessing==1.0.3 --no-deps
+
+# # Make you sure added arm architecture, see how to adds in debian flavors:
+
+# dpkg --add-architecture armhf
+# echo "deb [arch=armhf] http://httpredir.debian.org/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+
+# apt-get install libpython-all-dev:armhf
 
 # Configure wifi as bridge
