@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as validation from 'express-joi-validation';
+import { createValidator } from 'express-joi-validation';
 import { CommonController, commonValidators } from '../components/Common';
 
 export class CommonRouter {
@@ -9,7 +9,7 @@ export class CommonRouter {
 
   constructor() {
     this.commonController = new CommonController();
-    this.validator = validation({ passError: true });
+    this.validator = createValidator({ passError: true });
     this.router = this.initRouter();
   }
 

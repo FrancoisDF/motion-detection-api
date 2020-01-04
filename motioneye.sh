@@ -22,10 +22,27 @@ systemctl daemon-reload
 systemctl enable motioneye
 systemctl start motioneye
 
-# Install NodeJs
-apt-get install nodejs npm -y
+# Install npm
+curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
+apt-get install -y nodejs gcc g++ make
 
-# Configure wifi as bridge
+# Configure Samba to access video from the network (This will prompt a message to validate)
 
+apt-get install samba samba-common-bin
 
+cat >> /etc/samba/smb.conf <<EOF
+[pimylifeupshare]
+path = /home/pi/shared
+writeable=yes
+create mask=0777
+directory mask=0777
+public=yes
+EOF
+
+systemctl restart smbd
+
+# TensorFlow preparation
+
+sudo apt install python3-dev python3-pip -y
+sudo pip3 install -U virtualenv # system-wide install
 

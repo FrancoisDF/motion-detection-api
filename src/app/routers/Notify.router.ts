@@ -1,5 +1,5 @@
 import { Router } from 'express';
-import * as validation from 'express-joi-validation';
+import { createValidator } from 'express-joi-validation';
 import { NotifyController, notifyValidators } from '../components/Notify';
 
 export class NotifyRouter {
@@ -9,7 +9,7 @@ export class NotifyRouter {
 
   constructor() {
     this.notifyController = new NotifyController();
-    this.validator = validation({ passError: true });
+    this.validator = createValidator({ passError: true });
     this.router = this.initRouter();
   }
 

@@ -158,7 +158,7 @@ curl -LJO https://github.com/R0muald/motioneye-detection/archive/master.zip
 cd motioneye-detection
 npm install
 npm build
-npm -g pm2
+npm i pm2 -g
 pm2 start pm2-process.json
 ```
 
@@ -184,3 +184,25 @@ setting up motioneye `Motion Notification` web hook with POST (form) and the URL
 ### install motionye on raspbery Pi 3/4
 
 https://github.com/ccrisan/motioneye/wiki/Install-On-Raspbian
+
+
+## Configure raspbian from scratch
+
+To simplify the configuration and the install of motioneye on raspbian.
+1. Install [raspbian](https://www.raspberrypi.org/documentation/installation/installing-images/)
+2. In the boot folder (on the sdcard), add an empty `ssh.txt` file to configure ssh on the pi
+3. Copy `motioneye.sh` in th boot folder.
+3. Copy `motion-detection.sh` in th boot folder.
+4. Put the sdcard in the raspberry pi
+5. Connect in ssh to the pi then:
+
+```sh
+cd /boot
+sudo chmod +x motioneye.sh motion-detection.sh
+# run motioneye as root
+sudo ./motioneye.sh
+# Run motion-detection script with no root access
+./motion-detection.sh
+``
+
+
