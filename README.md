@@ -1,4 +1,7 @@
-# Motion detection service
+*NOTE:* This projec is still in progress, while the configuration of the pi with the `motionEye` script works great, the `motion-detection-api` service still has some issue to work on rasberry Pi4 with TensorFlow node version.
+
+
+# Motion detection API
 
 This project has been developed to provide a small AI capability to motionEye security system and help to analyse if the motion came from a person moving in the field.
 In case of recognized person, it will automatically send and email with the attached picture.

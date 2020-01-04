@@ -1,5 +1,5 @@
 {
-  "name": "motioneye-detection",
+  "name": "motion-detection-api",
   "version": "0.1.0",
   "description": "NodeJs API server to process images to extract person and send email/alert",
   "main": "src/index.ts",
@@ -15,7 +15,7 @@
   },
   "repository": {
     "type": "git",
-    "url": "https://github.com/r0muald/motioneye-detection.git"
+    "url": "https://github.com/r0muald/motion-detection.git"
   },
   "keywords": [
     "nodejs",
@@ -31,7 +31,7 @@
   ],
   "author": "francois.delpech@sfr.fr",
   "license": "MIT",
-  "homepage": "https://github.com/r0muald/motioneye-detection",
+  "homepage": "https://github.com/r0muald/motion-detection",
   "dependencies": {
     "@hapi/joi": "^17.0.0",
     "@tensorflow-models/coco-ssd": "^2.0.1",
