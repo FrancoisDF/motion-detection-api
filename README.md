@@ -1,15 +1,16 @@
 # Motion detection service
 
-This project has been developed to provide a small AI capability to motionEye security system and help to analyse if the motion came from a person. If that's teh case, the service will send en email with a picture.
+This project has been developed to provide a small AI capability to motionEye security system and help to analyse if the motion came from a person moving in the field.
+In case of recognized person, it will automatically send and email with the attached picture.
 
 
 ## Motivation
 
-The main goal was to add more AI capability to the already great MotionEye project without having to pay for cloud API capabilities. This then help to extend the services that can be call in function of the detection. Email/alert will be send only if a person has been seen, not if a light turned on or a cat passed by.
+The main goal, on top of learning more about deep learning, was to add an local AI capability to the already great MotionEye project without having to pay for cloud API processing. This project uses the open source [TensorFlow Lite](https://www.tensorflow.org/lite) as AI to recognize the motion. An email/alert will be send only if a person has been seen, not if a light turned on or a cat passed by.
 
 ## Technologies and Packages used
 
-The Small server has been created as an API server that run the PI and start processing images by Path (located on the PI) or by URL.
+The small server has been created as an API server that run the PI and start processing images by Path (located on the PI) or by URL.
 
 - `NodeJs`, `Express`, `Typescript` for the API server
 - `Tensorflow Lite` as AI capability to run the model localy and test the picture
