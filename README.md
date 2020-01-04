@@ -1,4 +1,4 @@
-*NOTE:* This projec is still in progress, while the configuration of the pi with the `motionEye` script works great, the `motion-detection-api` service still has some issue to work on rasberry Pi4 with TensorFlow node version.
+*NOTE:* This project is still in progress, while the configuration of the pi with the `motionEye` script works great, the `motion-detection-api` service still has some performance issue. We use `@tensorflow/tfjs` instead of `@tensorflow/tfjs-node` since the node version does not install well in PI as of now.
 
 
 # Motion detection API

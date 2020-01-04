@@ -1,4 +1,4 @@
-import * as tf from '@tensorflow/tfjs-node';
+import * as tf from '@tensorflow/tfjs';
 import * as model from '@tensorflow-models/coco-ssd';
 import * as fs from 'fs';
 import * as jpeg from 'jpeg-js';
