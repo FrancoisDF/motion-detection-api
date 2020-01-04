@@ -14,10 +14,10 @@ mv motioneye-detection-master motioneye-detection
 cd ./motioneye-detection
 # Configure .env.local with corresponding information
 cat >> .env.local <<EOF
-MAIL_HOST="in-v3.mailjet.com"
-MAIL_USER="ab69e2d34cc969560e992dbfcaf5ce86"
-MAIL_PASS="603871e8810838f98706e092ba520f8f"
-MAIL_FROM="no-reply@fdelpech.com"
+MAIL_HOST="<HOST>COM>"
+MAIL_USER="<USERNAM>"
+MAIL_PASS="<PASSWORD>"
+MAIL_FROM="<no-reply@DOMAIN.com"
 EOF
 
 npm i pm2 -g
@@ -28,9 +28,4 @@ pm2 start pm2-process.json
 # boot strategy
 pm2 startup
 pm2 save
-
-
-# Configure wifi as bridge
-
-
 

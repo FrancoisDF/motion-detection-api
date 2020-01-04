@@ -46,3 +46,4 @@ systemctl restart smbd
 sudo apt install python3-dev python3-pip -y
 sudo pip3 install -U virtualenv # system-wide install
 
+# Configure wifi as bridge
