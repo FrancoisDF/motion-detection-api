@@ -1,24 +1,82 @@
-# Express TypeScript API Boilerplate
+# Motion detection service
 
-Simple Express API boilerplate built with TypeScript.
+This project has been developed to provide a small AI capability to motionEye security system and help to analyse if the motion came from a person. If that's teh case, the service will send en email with a picture.
 
-### Motivation
 
-Main goal was to create a boilerplate for NodeJS projects built with TypeScript without having to spend long hours to setup development tools, build, linting and formatting tasks.
+## Motivation
 
-### Technologies and Packages used
+The main goal was to add more AI capability to the already great MotionEye project without having to pay for cloud API capabilities. This then help to extend the services that can be call in function of the detection. Email/alert will be send only if a person has been seen, not if a light turned on or a cat passed by.
 
-TypeScript, ES6, Express, TSLint, Dotenv, Prettier, Joi, Nodemon
+## Technologies and Packages used
 
-### Installation
+The Small server has been created as an API server that run the PI and start processing images by Path (located on the PI) or by URL.
 
+- `NodeJs`, `Express`, `Typescript` for the API server
+- `Tensorflow Lite` as AI capability to run the model localy and test the picture
+- `nodemailer` to send emails with pre-configured SMTP server
+- `PM2` To start eh service in production ready and configure the service to restart then the pi restart
+
+
+## Automatic configuration of MotionEye and motion-detection
+
+To help getting started, I created 2 script:
+- `motioneye.sh`: from a fresh rasbian install, it configures all you need for MotionEye to work with few more dependencies (Nodejs, C++ compiler). This script need to be run as sudo to work properly.
+- `motion-detection.sh`: Script that dowload this repo (motion-detection repo), install and configure the process to restart automatically when the Pi reboot. This script should be run as the default `pi` user (not as sudo at least). This script will need to be updated with your own SMTP configuration before running it.
+
+You can ether place both file on the SD card or copy them with SSH. Once done, connect to your pi on SSH, locate your 2 files (in the `/boot` folder usually), then run:
+
+```sh
+sudo chmod +x motioneye.sh motion-detection.sh
+sudo ./motioneye.sh
+./motion-detection.sh
 ```
-git clone git@github.com:jbutko/motioneye-detection.git
+
+### configure motionEye
+
+From MotionEye web interface (http://<IP_PI>:8765), you can now configure the `Motion Notification` web hook with POST (form) and the URL to `http://localhost:5000/notify/?path=<SNAPSHOT_URL>&email=<EMAIL_ADDRESS>`.
+
+
+## Manual configuration
+
+This install step by step consider that the Pi is already in a working state (https://github.com/ccrisan/motioneye/wiki/Install-On-Raspbian) and you already have motionEye installed on it.
+
+### Install
+
+1. Pull the repo locally
+```
+wget --no-check-certificate --content-disposition https://github.com/R0muald/motioneye-detection/archive/master.zip
+# --no-check-certificate was necessary for me to have wget not puke about https
+curl -LJO https://github.com/R0muald/motioneye-detection/archive/master.zip
+```
+
+2. install
+```
 cd motioneye-detection
-yarn install // or npm install
+npm install
+npm build
+npm i pm2 -g
+pm2 start pm2-process.json
 ```
 
-### Scripts
+### Make your server load when the Pi reboots
+
+1. When connected to your Pi via SSH, type `npm install -g pm2` to do a global install of the pm2 module.
+2. To run a server using pm2, go to your app directory and type `pm2 start pm2-process.json` . If you need to see if it’s running, type `pm2 ls` . If you need to stop it, type `pm2 delete 0` or whichever thread number you want to delete.
+3. To discover and implement the appropriate boot strategy for pm2, type `pm2 startup`. In this case, pm2 will create a the file `/etc/systemd/system/pm2-pi.service` which will include the following line: `ExecStart=/home/pi/.nvm/versions/node/v8.0.0/lib/node_modules/pm2/bin/pm2 resurrect` . In other words, when the Pi boots, it will execute `pm2 resurrect`, which will load whatever pm2 threads you have saved.
+4. In order to save the state of pm2 that you want to resurrect, run your server using `pm2 start pm2-process.json` and then type `pm2 save`.
+
+For more details and commands for pm2, visit http://pm2.keymetrics.io/docs/usage/startup/
+
+### Configure pi as bridge for camera
+
+https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md#internet-sharing
+
+
+
+
+## Development
+
+To develop and contribut to this repo, here are the different scripts:
 
 `yarn run dev`
 
@@ -53,6 +111,8 @@ yarn install // or npm install
 - check and fix typescript errors via TSLint and correct formatting errors via Prettier
 
 ### Project directory structure example
+
+This project is based on the [Express TypeScript API Boilerplate github repo](https://github.com/jbutko/express-ts-api-boilerplate )
 
 ```
 
@@ -142,67 +202,6 @@ pm2 logs nameOfTheAppFromPm2
 You can find the name of the app in `pm2-process.json` file.
 
 
-## Working in a Pi
 
-## Install
-
-1. Pull the repo locally
-```
-wget --no-check-certificate --content-disposition https://github.com/R0muald/motioneye-detection/archive/master.zip
-# --no-check-certificate was necessary for me to have wget not puke about https
-curl -LJO https://github.com/R0muald/motioneye-detection/archive/master.zip
-```
-
-2. install
-```
-cd motioneye-detection
-npm install
-npm build
-npm i pm2 -g
-pm2 start pm2-process.json
-```
-
-### Make your server load when the Pi reboots
-
-1. When connected to your Pi via SSH, type `npm install -g pm2` to do a global install of the pm2 module.
-2. To run a server using pm2, go to your app directory and type `pm2 start pm2-process.json` . If you need to see if it’s running, type `pm2 ls` . If you need to stop it, type `pm2 delete 0` or whichever thread number you want to delete.
-3. To discover and implement the appropriate boot strategy for pm2, type `pm2 startup`. In this case, pm2 will create a the file `/etc/systemd/system/pm2-pi.service` which will include the following line: `ExecStart=/home/pi/.nvm/versions/node/v8.0.0/lib/node_modules/pm2/bin/pm2 resurrect` . In other words, when the Pi boots, it will execute `pm2 resurrect`, which will load whatever pm2 threads you have saved.
-4. In order to save the state of pm2 that you want to resurrect, run your server using `pm2 start pm2-process.json` and then type `pm2 save`.
-
-For more details and commands for pm2, visit http://pm2.keymetrics.io/docs/usage/startup/
-
-### Configure pi as bridge for camera
-
-https://www.raspberrypi.org/documentation/configuration/wireless/access-point.md#internet-sharing
-
-
-### configure motionEye
-
-setting up motioneye `Motion Notification` web hook with POST (form) and the URL to http://www.example.com/path/?arg1=value1&arg2=value2 has the effect of using POST with a form url-encoded body (application/x-www-form-urlencoded), taking name-value pairs from the given URL (e.g. arg1=value1&arg2=value2).([issue](https://github.com/ccrisan/motioneyeos/issues/674))
-
-
-### install motionye on raspbery Pi 3/4
-
-https://github.com/ccrisan/motioneye/wiki/Install-On-Raspbian
-
-
-## Configure raspbian from scratch
-
-To simplify the configuration and the install of motioneye on raspbian.
-1. Install [raspbian](https://www.raspberrypi.org/documentation/installation/installing-images/)
-2. In the boot folder (on the sdcard), add an empty `ssh.txt` file to configure ssh on the pi
-3. Copy `motioneye.sh` in th boot folder.
-3. Copy `motion-detection.sh` in th boot folder.
-4. Put the sdcard in the raspberry pi
-5. Connect in ssh to the pi then:
-
-```sh
-cd /boot
-sudo chmod +x motioneye.sh motion-detection.sh
-# run motioneye as root
-sudo ./motioneye.sh
-# Run motion-detection script with no root access
-./motion-detection.sh
-``
 
 
