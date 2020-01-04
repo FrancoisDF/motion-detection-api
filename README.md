@@ -13,7 +13,7 @@ The main goal, on top of learning more about deep learning, was to add an local 
 The small server has been created as an API server that run the PI and start processing images by Path (located on the PI) or by URL.
 
 - `NodeJs`, `Express`, `Typescript` for the API server
-- `Tensorflow Lite` as AI capability to run the model localy and test the picture
+- `Tensorflow Lite` as AI capability to run the model locally and test the picture
 - `nodemailer` to send emails with pre-configured SMTP server
 - `PM2` To start eh service in production ready and configure the service to restart then the pi restart
 
