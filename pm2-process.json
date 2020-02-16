@@ -1,7 +1,7 @@
 {
   "apps": [
     {
-      "name": "motioneye-detection",
+      "name": "motion-detection-api",
       "script": "./build/index.js",
       "watch": false,
       "env": {
@@ -9,10 +9,11 @@
         "PORT": 5000
       },
       "autorestart": true,
-      "instances": 0,
+      "instances": 1,
+      "max_memory_restart" : "500M",
       "log_date_format": "DD.MM.YYYY HH:mm Z",
-      "error_file": "/home/user/apps/motioneye-detection/logs/pm2/error.log",
-      "out_file": "/home/user/apps/motioneye-detection/logs/pm2/out.log"
+      "error_file": "../logs/pm2/error.log",
+      "out_file": "../logs/pm2/out.log"
     }
   ]
 }

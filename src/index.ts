@@ -1,11 +1,14 @@
+require('@tensorflow/tfjs-node');
+
 import { Env } from './app/core';
 Env.loadEnvSettings();
 
 import * as http from 'http';
 import * as debug from 'debug';
 import { App } from './app/App';
+require('@tensorflow/tfjs-node')
 
-const DEFAULT_PORT = 3000;
+const DEFAULT_PORT = 5000;
 const logger = debug('app:src/index.ts');
 
 const app: App = new App();

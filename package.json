@@ -33,9 +33,10 @@
   "license": "MIT",
   "homepage": "https://github.com/r0muald/motion-detection",
   "dependencies": {
-    "@hapi/joi": "^17.0.0",
+    "@hapi/joi": "^16.0.0",
     "@tensorflow-models/coco-ssd": "^2.0.1",
-    "@tensorflow/tfjs": "^1.5.1",
+    "@tensorflow-models/mobilenet": "^2.0.4",
+    "@tensorflow/tfjs-node": "^1.5.1",
     "@types/nodemailer": "^6.4.0",
     "compression": "^1.7.4",
     "debug": "^4.1.1",
@@ -45,7 +46,8 @@
     "express-joi-validation": "^4.0.3",
     "helmet": "^3.16.0",
     "jpeg-js": "^0.3.6",
-    "nodemailer": "^6.4.2"
+    "nodemailer": "^6.4.2",
+    "rpi-gpio": "^2.1.5"
   },
   "devDependencies": {
     "@types/body-parser": "^1.17.0",

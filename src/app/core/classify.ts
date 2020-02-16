@@ -1,5 +1,6 @@
 import * as tf from '@tensorflow/tfjs';
-import * as model from '@tensorflow-models/coco-ssd';
+import * as cocoSsd from '@tensorflow-models/coco-ssd';
+
 import * as fs from 'fs';
 import * as jpeg from 'jpeg-js';
 
@@ -13,26 +14,19 @@ export declare interface IPrediction {
 export class Classify {
   private mnModel: any;
   private numChannels: number = 3;
+  private predictions: IPrediction[];
 
   constructor() {
-    model.load().then(data => {
-      this.mnModel = data;
-    })
+    console.log("Classify")
+    this.mnModel = cocoSsd.load();
   }
 
   public async detect(buffer: any, classDetect: string): Promise<IPrediction[]|undefined> {
     const image = jpeg.decode(buffer, true);
-
     const input = this.imageToInput(image);
-
-    const predictions: IPrediction[] = await this.mnModel.detect(input);
-    const persons: IPrediction[] = [];
-    predictions.forEach((pred) => {
-      if (pred.class === classDetect) {
-        persons.push(pred);
-      }
-    })
-    return Promise.resolve(persons);
+    const model = await this.mnModel;
+    this.predictions = await model.detect(input);
+    return Promise.resolve(this.predictions.filter((pred) => (pred.class === classDetect)));
   }
 
   public async loadImage(path: any): Promise<Buffer>{
@@ -72,6 +66,7 @@ export class Classify {
   private imageToInput = (image: jpeg.UintArrRet) => {
     const values = this.imageByteArray(image)
     const outShape: [number, number, number] = [image.height, image.width, this.numChannels];
-    return tf.tensor3d(values, outShape, 'int32');
+    const tensor3d = tf.tensor3d(values, outShape, 'int32');
+    return tensor3d;
   }
 }

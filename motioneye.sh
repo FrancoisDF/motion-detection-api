@@ -2,11 +2,15 @@
 
 ####
 # Configure Raspberry pi with motioneye from a raspbian instance
+# https://technodezi.co.za/Post/running-face-apijs-or-tfjs-node-on-a-raspberry-pi-and-nodejs
 ####
+apt-get purge wolfram-engine -y
+apt-get purge libreoffice* -y
+apt-get clean
+apt-get autoremove -y
 
 # Update system
-apt-get update
-apt-get upgrade -y
+apt-get apt-get update & sudo apt-get -y dist-upgrade
 
 # Install motioneye
 apt-get install ffmpeg libmariadb3 libpq5 libmicrohttpd12 -y
@@ -22,9 +26,6 @@ systemctl daemon-reload
 systemctl enable motioneye
 systemctl start motioneye
 
-# Install npm
-curl -sL https://deb.nodesource.com/setup_13.x | sudo -E bash -
-apt-get install -y nodejs gcc g++ make
 
 # Configure Samba to access video from the network (This will prompt a message to validate)
 
@@ -41,23 +42,31 @@ EOF
 
 systemctl restart smbd
 
-# TensorFlow preparation
+# Install npm
+curl -sL https://deb.nodesource.com/setup_12.x | sudo -E bash -
+apt-get install -y nodejs gcc g++ make
 
-# apt-get install openjdk-8-jdk automake autoconf -y
-# apt-get install curl zip unzip libtool swig libpng-dev zlib1g-dev pkg-config git g++ wget xz-utils -y
+# Install Build Tools and additional components:
+npm install -g node-gyp
+npm install -g node-pre-gyp
+apt-get update
+apt-get install cmake
+apt-get install build-essential pkg-config
+apt-get install libcairo2-dev libpango1.0-dev libjpeg-dev libgif-dev librsvg2-dev
 
-# # For python2.7
-# apt-get install python-numpy python-dev python-pip python-mock -y
+# Configure local node project
+npm i pm2 -g
 
-# # if using a virtual environment, omit the --user argument
-# pip install -U --user keras_applications==1.0.5 --no-deps
-# pip install -U --user keras_preprocessing==1.0.3 --no-deps
+cat >> .env.local <<EOF
+MAIL_HOST="<HOST_COM>"
+MAIL_USER="<USERNAM>"
+MAIL_PASS="<PASSWORD>"
+MAIL_FROM="<no-reply@DOMAIN.com"
+EOF
 
-# # Make you sure added arm architecture, see how to adds in debian flavors:
+# Configure
 
-# dpkg --add-architecture armhf
-# echo "deb [arch=armhf] http://httpredir.debian.org/debian/ buster main contrib non-free" >> /etc/apt/sources.list
+curl -sL https://install.raspap.com | bash -s -- -y
 
-# apt-get install libpython-all-dev:armhf
 
-# Configure wifi as bridge
+
