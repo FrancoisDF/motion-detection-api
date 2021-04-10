@@ -35,7 +35,6 @@
   "dependencies": {
     "@hapi/joi": "^16.0.0",
     "@tensorflow-models/coco-ssd": "^2.0.1",
-    "@tensorflow-models/mobilenet": "^2.0.4",
     "@tensorflow/tfjs-node": "^1.5.1",
     "@types/nodemailer": "^6.4.0",
     "compression": "^1.7.4",
@@ -46,6 +45,7 @@
     "express-joi-validation": "^4.0.3",
     "helmet": "^3.16.0",
     "jpeg-js": "^0.3.6",
+    "node-fetch": "^2.6.0",
     "nodemailer": "^6.4.2",
     "rpi-gpio": "^2.1.5"
   },

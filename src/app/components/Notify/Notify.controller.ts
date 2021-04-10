@@ -34,7 +34,7 @@ export class NotifyController {
       this.image = await this.classify.loadImage(path);
       const foundPerson = await this.classify.detect(this.image, 'person');
 
-      if(!!foundPerson && !!email) {
+      if(!!foundPerson && foundPerson.length > 0 && !!email) {
         sendEmail(email, this.image);
       }
       res.status(200).json(foundPerson);

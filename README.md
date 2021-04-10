@@ -36,19 +36,23 @@ If you don't want to configure and run this project on a raspberry pi, you can u
 
 ### Script configuration of MotionEye and motion-detection
 
-To help getting started, I created 2 script:
-- `motioneye.sh`: from a fresh rasbian install, it configures all you need for MotionEye to work with few more dependencies (Nodejs, C++ compiler). This script need to be run as sudo to work properly.
+1. Download [raspbian light](https://www.raspberrypi.org/downloads/raspbian/),
+2. Use [balenaEtcher](https://www.balena.io/etcher/) to burn the image into the SD card,
+3. Add `ssh` or `ssh.txt` file into the `/boot` folder before removing the SD card,
+4. Put the SD card in the Pi and connect it to the wired network,
+5. Connect with ssh: `ssh pi@raspberrypi` password: `raspberry`.
 
-You can ether place both file on the SD card or copy them with SSH. Once done, connect to your pi on SSH, locate your 2 files (in the `/boot` folder usually), then run:
+To help getting started, I created an install script `raspbian-setup.sh`. From a fresh rasbian install, it configures all you need for MotionEye to work with few more dependencies (Nodejs, C++ compiler). This script need to be run as sudo to work properly.
 
 ```sh
 wget --no-check-certificate --content-disposition https://github.com/R0muald/motioneye-detection/archive/master.zip
-unzip motioneye-detection-master.zip
-mv motioneye-detection-master motioneye-detection
-cd ./motioneye-detection
-sudo chmod +x motioneye.sh motion-detection.sh
-sudo ./motioneye.sh
+unzip motion-detection-api-master.zip
+mv motion-detection-api-master motion-detection
+cd ./motion-detection
+sudo chmod +x raspbian-setup.sh
+sudo ./raspbian-setup.sh
 ```
+
 restart your py:
 ```
 sudo reboot
@@ -57,9 +61,10 @@ sudo reboot
 Update `.env.local` with your own MAIL configuration then run it:
 
 ```sh
-npm install
-npm run build
-pm2 start pm2-process.json
+cd ./motion-detection
+yarn install
+yarn build
+pm2-runtime pm2-process.json
 # boot strategy
 pm2 startup
 pm2 save
