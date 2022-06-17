@@ -44,7 +44,7 @@
     "express": "^4.17.0",
     "express-joi-validation": "^5.0.0",
     "helmet": "^4.4.1",
-    "jpeg-js": "^0.4.3",
+    "jpeg-js": "^0.4.4",
     "node-fetch": "^2.6.1",
     "nodemailer": "^6.5.0",
     "rpi-gpio": "^2.1.7"
